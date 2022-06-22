@@ -1,0 +1,11 @@
+<h1 class="success text-center">Welcome to the Wedding Planner!</h1>
+
+<div class="text-center">
+    <p>User ID: @Context.Session.GetInt32("UUID") is logged in.</p>
+</div>
+
+<form asp-action="Logout" asp-controller="Users" method="POST">
+    <div class="text-center">
+        <input class="btn-primary" type="submit" value="Logout"/>
+    </div>
+</form>

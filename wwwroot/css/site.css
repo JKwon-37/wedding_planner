@@ -1,0 +1,14 @@
+* {
+  background-color: black;
+  color: azure;
+  font-family: "Press Start 2P";
+}
+
+.val {
+  color: red;
+}
+
+.current {
+  text-decoration: none;
+  font-weight: bolder;
+}

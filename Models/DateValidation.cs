@@ -5,9 +5,9 @@ public class DateValidation : ValidationAttribute
 
     protected override ValidationResult? IsValid(object dob, ValidationContext validationContext)
     {
-        if((DateTime)dob > DateTime.Now)
+        if((DateTime)dob < DateTime.Now)
         {
-            return new ValidationResult("Must be a past date!");
+            return new ValidationResult("Must be a future date!");
         }
         return ValidationResult.Success;
     }

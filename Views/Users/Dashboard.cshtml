@@ -4,8 +4,48 @@
     <p>User ID: @Context.Session.GetInt32("UUID") is logged in.</p>
 </div>
 
-<form asp-action="Logout" asp-controller="Users" method="POST">
-    <div class="text-center">
-        <input class="btn-primary" type="submit" value="Logout"/>
-    </div>
-</form>
+<table class="table table-striped table-dark">
+    <thead>
+        <th>Wedding</th>
+        <th>Date</th>
+        <th>Guest</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach (Wedding w in ViewBag.allWeddings)
+        {
+            bool RSVPd = @w.AttendsWedding.Any(attender => attender.UserId == Context.Session.GetInt32("UUID"));
+            <tr>
+                <td>
+                    <a
+                    asp-controller="Weddings"
+                    asp-action="WeddingDetails"
+                    asp-route-weddingId="@w.WeddingId"
+                    >@w.WedderOne & @w.WedderTwo</a>
+                </td>
+                <td>@w.Date</td>
+                <td></td>
+                <td>
+                    <form
+                    asp-controller="Weddings"
+                    asp-action="RSVP"
+                    asp-route-weddingId=@w.WeddingId>
+                        <button>
+                        @if(RSVPd == true)
+                        {
+                            <span>Un-RSVP</span>
+                        } else
+                        {
+                            <span>RSVP</span>
+                        }
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a class="btn-primary text-decoration-none" asp-action="NewWedding" asp-controller="Weddings">New Wedding</a>
+</div>

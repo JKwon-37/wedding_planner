@@ -1,0 +1,17 @@
+@model Wedding
+
+<h1>@Model.WedderOne & @Model.WedderTwo Wedding</h1>
+
+<h3>@Model.Date</h3>
+
+<h3>Guest List</h3>
+<ul>
+    @foreach (UserWeddingAttend attending in Model.AttendsWedding)
+    {
+        @if(attending != null)
+        {
+            <li>@attending.Attender.FirstName @attending.Attender.LastName</li>
+        }
+    }
+</ul>
+

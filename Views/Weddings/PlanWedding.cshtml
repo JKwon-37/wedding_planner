@@ -1,0 +1,27 @@
+@model Wedding
+
+<h1>Plan Your Wedding</h1>
+
+<form asp-controller="Weddings" asp-action="CreateWedding">
+    <div class="form-group">
+        <label asp-for="WedderOne"></label>
+        <span class="val" asp-validation-for="WedderOne"></span>
+        <input asp-for="WedderOne" type="text">
+    </div>
+    <div class="form-group">
+        <label asp-for="WedderTwo"></label>
+        <span class="val" asp-validation-for="WedderTwo"></span>
+        <input asp-for="WedderTwo" type="text">
+    </div>
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <span class="val" asp-validation-for="Date"></span>
+        <input asp-for="Date" type="datetime-local">
+    </div>
+    <div class="form-group">
+        <label asp-for="WeddingDress"></label>
+        <span class="val" asp-validation-for="WeddingDress"></span>
+        <input asp-for="WeddingDress" type="text">
+    </div>
+    <input class="btn-primary" type="submit" value="Create">
+</form>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeddingPlanner.Models;
 
@@ -10,9 +11,10 @@ using WeddingPlanner.Models;
 namespace WeddingPlanner.Migrations
 {
     [DbContext(typeof(WeddingPlannerContext))]
-    partial class WeddingPlannerContextModelSnapshot : ModelSnapshot
+    [Migration("20220623145448_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +70,6 @@ namespace WeddingPlanner.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("WeddingId");
-
                     b.ToTable("Attends");
                 });
 
@@ -88,9 +88,6 @@ namespace WeddingPlanner.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("WedderOne")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -105,8 +102,6 @@ namespace WeddingPlanner.Migrations
 
                     b.HasKey("WeddingId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Weddings");
                 });
 
@@ -118,29 +113,7 @@ namespace WeddingPlanner.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WeddingPlanner.Models.Wedding", null)
-                        .WithMany("AttendsWedding")
-                        .HasForeignKey("WeddingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Attender");
-                });
-
-            modelBuilder.Entity("WeddingPlanner.Models.Wedding", b =>
-                {
-                    b.HasOne("WeddingPlanner.Models.User", "LoggedUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LoggedUser");
-                });
-
-            modelBuilder.Entity("WeddingPlanner.Models.Wedding", b =>
-                {
-                    b.Navigation("AttendsWedding");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,10 +23,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            @if(Context.Session.GetInt32("UUID") != null)
+                            {
+                                <a class="nav-link text-light" asp-area="" asp-controller="Users" asp-action="Dashboard">Dashboard</a>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            @if(Context.Session.GetInt32("UUID") != null)
+                            {
+                                <form asp-area="" asp-action="Logout" asp-controller="Users" method="POST"><input class="nav-link text-light" type="submit" value="Logout"></form>
+                            }
                         </li>
                     </ul>
                 </div>

@@ -38,5 +38,5 @@ public class User
     public DateTime CreatedAt {get;set;} = DateTime.Now;
     public DateTime UpdatedAt {get;set;} = DateTime.Now;
 
-    List<UserWeddingAttend> AttendsUser {get;set;} = new List<UserWeddingAttend>();
+    public List<UserWeddingAttend> AttendsUser {get;set;} = new List<UserWeddingAttend>();
 }

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WeddingPlanner.Models;
 
 public class UsersController : Controller
@@ -12,9 +13,21 @@ public UsersController(WeddingPlannerContext context)
     _context = context;
 }
 
-[HttpGet("weddingplanner")]
+private int? uid
+    {
+        get
+        {
+            return HttpContext.Session.GetInt32("UUID");
+        }
+    }
+
+[HttpGet("signup")]
 public IActionResult LoginReg()
 {
+    if(uid != null)
+    {
+        return RedirectToAction("Dashboard", "Users");
+    }
     return View("LoginReg");
 }
 
@@ -74,12 +87,15 @@ public IActionResult Login(LogUser loginUser)
 }
 
 [HttpGet("dashboard")]
-public IActionResult Dashboard()
+public IActionResult Dashboard(int weddingId)
 {
     if(HttpContext.Session.GetInt32("UUID") == null)
     {
         return LoginReg();
     }
+
+    List<Wedding> allWeddings = _context.Weddings.Include(a => a.LoggedUser).Include(a => a.AttendsWedding).ThenInclude(a => a.Attender).ToList();
+    ViewBag.allWeddings = allWeddings;
     return View("Dashboard");
 }
 
